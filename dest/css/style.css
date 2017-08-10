@@ -1,0 +1,134 @@
+#jobubu{
+  position: absolute;
+  z-index: 5;
+  top: 300px;
+  left: -50px;
+  transition: all 0.2s;
+}
+
+#jobubu:hover{
+  left: -40px;
+}
+
+#jobubu img:hover ~ #jobubu-balloon{
+  visibility: visible;
+  opacity: 1.0;
+}
+
+#jobubu-balloon:hover{
+  visibility: visible;
+  opacity: 1.0;
+}
+
+#jobubu img{
+  width: 100px;
+}
+
+#jobubu-balloon {
+	position: relative;
+  top: -60px;
+	display: inline-block;
+  border: solid 2px black;
+	width: auto;
+	min-width: 115px;
+	height: 50px;
+  padding: 0 10px;
+	color: black;
+	line-height: 50px;
+	text-align: center;
+	background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	border-radius: 60px;
+	z-index: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s;
+}
+#jobubu-balloon:before {
+	content: "";
+	position: absolute;
+	bottom: -5px; left: -5px;
+	margin-left: 0;
+	display: block;
+  border: solid 2px black;
+	width: 15px;
+	height: 15px;
+	background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	border-radius: 50%;
+	z-index: 0;
+}
+#jobubu-balloon:after {
+	content: "";
+	position: absolute;
+	bottom: -10px; left: -10px;
+	margin-left: 0;
+	display: block;
+  border: solid 2px black;
+	width: 8px;
+	height: 8px;
+	background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	border-radius: 50%;
+	z-index: 0;
+}
+
+.personix-icon-button {
+  opacity:0.8;
+  background-color: #202020;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  color: whitesmoke;
+  font-size: 15px;
+  position: absolute;
+  z-index: 5;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  transition: opacity 0.2s;
+  transition-delay: 0.1s;
+}
+.personix-icon-button:hover{
+  opacity:1.0;
+}
+
+.personix-dialog{
+  display: none;
+  position: absolute;
+  padding: 10px;
+  z-index: 5;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  /*widthとheightは動的に決める*/
+}
+
+.dialog-visible{
+  display: block;
+}
+
+.personix-dialog:hover{
+  display: block;
+}
+
+.personix-keyword{
+  display: inline-block;
+  margin: 5px;
+  background-color: #81D4FA;
+  vertical-align: middle;
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.personix-keyword:hover{
+  cursor: pointer;
+  color: whitesmoke;
+  background-color: #0288D1;
+  /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+}

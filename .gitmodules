@@ -1,0 +1,3 @@
+[submodule "lib/gimmickry"]
+	path = lib/gimmickry
+	url = https://github.com/YoshiyukiKato/gimmickry.git

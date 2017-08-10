@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "name": "gimmickry",
+  "description": "devtool of gimmickry",
+  "version": "0.0.1",
+  "web_accessible_resources": [
+    "js/content_scripts/init.js",
+    "auth_callback.html"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "browser_action": {
+    "default_icon": {
+      "19": "images/icon/icon_19.png",
+      "38": "images/icon/icon_38.png"
+    },
+    "default_title": "gizmo",
+    "default_popup": "popup.html"
+  },
+
+  "content_scripts":[
+    {
+      "matches": [ "http://*/*", "https://*/*" ],
+      "css": ["css/style.css"],
+      "js": [
+        "js/content_scripts/injector.js"
+      ]
+    }
+  ],
+
+  "permissions" : [
+    "tabs",
+    "storage"
+  ],
+
+  "background": {
+    "scripts": ["js/background/background.js"],
+    "persistent": false
+  }
+}
