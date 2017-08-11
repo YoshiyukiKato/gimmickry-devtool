@@ -11,6 +11,7 @@ import File from "./file";
 import Github from "./github"
 import Gizmo from "./gizmo"
 import Local from "./local";
+import People from "./people";
 import Remote from "./remote";
 import Remove from "./remove";
 import Sync from "./sync";
@@ -20,4 +21,4 @@ import Toggle from "./toggle";
 import UIComponent from "./ui-component";
 import Warning from "./warning";
 
-export { Account, Add, Approach, Auth, Clone, DataAPI, Directory, Edit, File, Fail, Gizmo, Github, Local, Remote, Remove, Segment, Success, Sync, Toggle, UIComponent, Warning }
+export { Account, Add, Approach, Auth, Clone, DataAPI, Directory, Edit, File, Fail, Gizmo, Github, Local, People, Remote, Remove, Segment, Success, Sync, Toggle, UIComponent, Warning }

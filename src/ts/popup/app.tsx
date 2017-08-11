@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as $ from "jquery";
 
 import {Local} from "./gimmicks";
+import Users from "./users";
 import * as Icons from "./icons";
 import Storage from "../utils/storage";
 
@@ -17,7 +18,7 @@ export default class App extends Component<any, AppState>{
   constructor(props:any){
     super(props);
     this.state = {
-      tab : "local"
+      tab : "view"
     };
   }
 
@@ -51,12 +52,17 @@ export default class App extends Component<any, AppState>{
     return (
       <div id="app">
         <div id="tabs">
-          <div id="tab-local" className={`tab${this.state.tab==="local" ? " active" : ""}`} onClick={this.switchTab.bind(this, "local")}>
-            <Icons.Local/>
-            <span>Local</span>
+          <div id="tab-view" className={`tab${this.state.tab==="view" ? " active" : ""}`} onClick={this.switchTab.bind(this, "view")}>
+            <Icons.UIComponent/>
+            <span>View</span>
+          </div>
+          <div id="tab-user" className={`tab${this.state.tab==="users" ? " active" : ""}`} onClick={this.switchTab.bind(this, "users")}>
+            <Icons.People/>
+            <span>User</span>
           </div>
         </div>
-        <Local className={`tab-content${this.state.tab==="local" ? " active" : ""}`} token={this.state.token} secret={this.state.secret}/>
+        <Local className={`tab-content${this.state.tab==="view" ? " active" : ""}`} token={this.state.token} secret={this.state.secret}/>
+        <Users className={`tab-content${this.state.tab==="users" ? " active" : ""}`} token={this.state.token} secret={this.state.secret}/>
       </div>
     );
   }
