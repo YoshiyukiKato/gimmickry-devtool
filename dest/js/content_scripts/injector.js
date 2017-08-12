@@ -44,6 +44,13 @@ function loadScripts(){
   const message = { type : "init" };
   chrome.runtime.sendMessage(message, function(response){});
   chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
+    if(message && message.user){
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.innerHTML = `window.__importUser__(${JSON.stringify({ props : message.user })})`;
+      document.body.appendChild(script);
+    }
+    
     if(message && message.gimmicks){
       const script = document.createElement("script");
       script.type = "text/javascript";

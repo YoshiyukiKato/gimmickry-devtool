@@ -1,9 +1,10 @@
 import React, {Component} from "react";
 import $ from "jquery";
+import uuid from "uuid";
 
 import AceEditor from "react-ace";
 import brace from 'brace';
-import 'brace/mode/javascript';
+import 'brace/mode/json';
 import 'brace/theme/clouds';
 
 import * as Icons from "../icons";
@@ -38,7 +39,15 @@ export default class LocalUsers extends Component<UsersProps, UsersState>{
 
   add(){
     //TODO: set uuid when adding item
-    const newItem = {};
+    const newItem = {
+      _lid : uuid.v4(),
+      name : "",
+      targetURL : "",
+      attrs : JSON.stringify({
+        "key" : "value",
+        "by" : "json format"
+      }, null, 2)
+    };
     this.state.users.push(newItem);
     this.setState({ users : this.state.users });
   }
@@ -66,7 +75,7 @@ export default class LocalUsers extends Component<UsersProps, UsersState>{
   render(){
     const userItems = this.state.users.map((user, index) => {
       if(!user) return;     
-      return (<UserItem key={`user-${index}`} user={user}
+      return (<UserItem key={`user-${user._lid}`} user={user}
         token={this.props.token}
         secret={this.props.secret}
         onSave={this.save.bind(this, index)}
@@ -172,7 +181,7 @@ interface EditItemState{
   afterSave : any;
   name : string;
   targetURL : string;
-  attrs : any[];
+  attrs : string;
 }
 
 class EditItem extends Component<EditItemProps, EditItemState>{
@@ -184,10 +193,11 @@ class EditItem extends Component<EditItemProps, EditItemState>{
 
   get initialState(){
     return {
+      _lid : uuid.v4(), //local id
       afterSave : {},
       name : "",
       targetURL : "",
-      attrs : []
+      attrs : ""
     };
   }
 
@@ -204,17 +214,23 @@ class EditItem extends Component<EditItemProps, EditItemState>{
         </div>
 
         <div className="item-attrs section-block">
-          <div className="item-attr">
-            <h4>Props</h4>
-            <Attrs value={this.state.attrs} onChange={this.handleAttrsChange}/>
-          </div>
-          <div className="item-attr">
-            <h4>State</h4>
+          <h4>Attributes</h4>
+          <div className="section-block">
+          <AceEditor
+            mode="json"
+            value={this.state.attrs}
+            tabSize={2}
+            theme="clouds"
+            width="300px"
+            height="150px"
+            onChange={this.handleAttrsChange.bind(this)}
+            name={`editor_${this.props.user.name}`}
+            setOptions={{showInvisibles: true}}
+          />
           </div>
         </div>
         <div className="section-block">
           <button className="button" onClick={this.handleSave.bind(this)}>Save local</button>
-          <button className="button publish-item" onClick={this.handlePublish.bind(this)} disabled={!this.props.token}>Publish</button>
           <div className={`after-save ${this.state.afterSave.isVisible ? "visible" : "hidden"} ${this.state.afterSave.status ? "success" : "error"}`}>
             {this.state.afterSave.text}
           </div>
@@ -227,7 +243,7 @@ class EditItem extends Component<EditItemProps, EditItemState>{
     const item = {
       name : this.state.name,
       targetURL : this.state.targetURL,
-      attrs : this.state.attrs.filter((attr:any) => !!attr)
+      attrs : this.state.attrs
     };
 
     this.props.onSave(item);
@@ -243,6 +259,7 @@ class EditItem extends Component<EditItemProps, EditItemState>{
     }, 3000);
   }
 
+  /*
   handlePublish(){
     const item = {
       name : this.state.name,
@@ -252,7 +269,7 @@ class EditItem extends Component<EditItemProps, EditItemState>{
 
     $.ajax({
       type : "post",
-      url : "https://jm38lj0j8i.execute-api.ap-northeast-1.amazonaws.com/dev/gizmo",
+      url : "",
       contentType : "application/json",
       data : JSON.stringify({
         cmd : "set",
@@ -270,6 +287,7 @@ class EditItem extends Component<EditItemProps, EditItemState>{
       }
     });
   }
+  */
 
   isValid(){
     return (
@@ -289,7 +307,8 @@ class EditItem extends Component<EditItemProps, EditItemState>{
   }
 
   handleAttrsChange=this._handleAttrsChange.bind(this);
-  _handleAttrsChange(attrs:any[]){
+  _handleAttrsChange(attrs:string){
+    console.log(attrs);
     this.setState({
       attrs : attrs
     });
@@ -315,7 +334,7 @@ interface AttrsProps extends AttrsState{
   onChange : (value:any[]) => any;
 }
 interface AttrsState{
-  value : AttrState[];
+  value : any[];
 }
 
 class Attrs extends Component<AttrsProps, AttrsState>{
@@ -338,9 +357,9 @@ class Attrs extends Component<AttrsProps, AttrsState>{
   }
 
   renderAttrs(){
-    return this.state.value.map((attr:AttrState, index:number) => {
+    return this.state.value.map((attr:any, index:number) => {
       if(!attr) return;
-      return <Attr key={`attr-${index}`} {...attr}
+      return <Attr key={`attr-${attr.__id}`} {...attr}
         onChange={this.updateAttr.bind(this, index)}
         onRemove={this.removeAttr.bind(this, index)}/>;
     }).filter((item?:JSX.Element) => !!item);
@@ -349,10 +368,10 @@ class Attrs extends Component<AttrsProps, AttrsState>{
   addAttr(){
     //TODO: set uuid when adding item
     const newAttr = {
-      __id : "",
+      _lid : uuid.v4(), //local id
       name : "",
       type : "",
-      value : "",
+      value : ""
     };
     this.state.value.push(newAttr);
     this.setState({ value : this.state.value }, () => {
@@ -458,9 +477,7 @@ class Attr extends Component<any, AttrState>{
   _handleChangeAttrs(value:any){
     this.setState({
       value : value
-    }, () => {
-      this.props.onChange(this.state);
-    });
+    }, this.afterChange);
   }
 
   handleChangeType=this._handleChangeType.bind(this);
@@ -470,9 +487,7 @@ class Attr extends Component<any, AttrState>{
     this.setState({
       type : nextType,
       value : nextValue
-    }, () => {
-      this.props.onChange(this.state);
-    });
+    }, this.afterChange);
   }
   
   handleChangeName=this._handleChangeInput.bind(this, "name");
@@ -480,8 +495,15 @@ class Attr extends Component<any, AttrState>{
   _handleChangeInput(name:string, evt:any){
     let nextState:any = {};
     nextState[name] = evt.target.value;
-    this.setState(nextState, () => {
-      this.props.onChange(this.state);
+    this.setState(nextState, this.afterChange);
+  }
+
+  afterChange=this._afterChange.bind(this);
+  _afterChange(){
+    this.props.onChange({
+      name : this.state.name,
+      type : this.state.type,
+      value : this.state.value
     });
   }
 }
