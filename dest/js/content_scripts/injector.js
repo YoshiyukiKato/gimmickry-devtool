@@ -47,7 +47,7 @@ function loadScripts(){
     if(message && message.user){
       const script = document.createElement("script");
       script.type = "text/javascript";
-      script.innerHTML = `window.__importUser__(${JSON.stringify({ props : message.user })})`;
+      script.innerHTML = `window.__importUser__(${JSON.stringify(message.user)})`;
       document.body.appendChild(script);
     }
     
