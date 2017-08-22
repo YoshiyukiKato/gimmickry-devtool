@@ -11,7 +11,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         if(u && u.targetURL && u.status && sender.tab.url.match(new RegExp(u.targetURL))){
           try{
             let attrs = JSON.parse(u.attrs);
-            user[u.name] = attrs;
+            user = Object.assign(user, attrs);
           }catch(e){
             //nothing todo when the u.attrs is invalid
           }
