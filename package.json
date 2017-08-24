@@ -74,6 +74,7 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "d3": "^4.9.1",
+    "gimmickry": "^0.0.2",
     "googleapis": "^19.0.0",
     "jquery": "^3.2.1",
     "password-validator": "^3.0.0",
