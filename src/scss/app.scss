@@ -1,3 +1,5 @@
+@import "./spinner.scss";
+
 *{
   padding : 0px;
   margin : 0px;
@@ -101,7 +103,7 @@ input[type="text"], input[type="password"]{
 .gimmick-list{
 }
 
-.gimmick-item, .user-item{
+.gimmick-item, .user-item, .app-item{
   padding-top : 12px;
   padding-bottom : 12px;
   padding-right : 24px;
@@ -153,6 +155,34 @@ input[type="text"], input[type="password"]{
     opacity : 0;
   }
 }
+
+.submit-action{
+  display : flex;
+  align-items : center;
+}
+.submit-status{
+  width : 150px;
+  margin : 6px;
+  font-size : 12px;
+  display : flex;
+  align-items:center;
+  .status-icon{
+    
+  }
+  .status-message{
+    margin-left : 6px;
+  }
+  &.submit-success{
+    color : $md-green-500;
+  }
+  &.submit-pending{
+    color : $md-grey-500;
+  }
+  &.submit-fail{
+    color : $md-red-500;
+  }
+}
+
 
 .item-switch{
   flex-grow : 1;

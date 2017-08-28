@@ -1,14 +1,10 @@
-init();
+setup()
+.then(loadScripts)
+.catch((err) => {
+  console.log(err);
+});
 
-function init() {
-  gimmify().then(loadScripts)
-  .catch((err) => {
-    console.log(err);
-  });
-}
-
-//gimmickryの__importUser__と__importView__がなかったら勝手に突っ込む
-function gimmify(){
+function setup(){
   const url = chrome.runtime.getURL("./js/content_scripts/init.js")
   return request(url)
   .then((payload) => {
@@ -39,7 +35,6 @@ function request(url) {
   });
 }
 
-//スクリプトのリストを読み出して突っ込む
 function loadScripts(){
   const message = { type : "init" };
   chrome.runtime.sendMessage(message, function(response){});
@@ -47,7 +42,7 @@ function loadScripts(){
     if(message && message.user){
       const script = document.createElement("script");
       script.type = "text/javascript";
-      script.innerHTML = `window.__importUser__(${JSON.stringify(message.user)})`;
+      script.innerHTML = `window.__import_user_attrs_value__(${JSON.stringify(message.user)})`;
       document.body.appendChild(script);
     }
     
@@ -55,7 +50,7 @@ function loadScripts(){
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.innerHTML = message.gimmicks.map((gimmick) => {
-        return `window.__importView__("${gimmick.name}", (user) => { ${gimmick.script} })`;
+        return `window.__import_view_component__("${gimmick.name}", (user) => { ${gimmick.script} })`;
       }).join("\n");
       document.body.appendChild(script);
     }

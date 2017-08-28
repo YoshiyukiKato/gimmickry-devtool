@@ -2699,12 +2699,11 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-gimmickry@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/gimmickry/-/gimmickry-0.0.2.tgz#81d4b437b7dc791e146f158da93292374a03b556"
+gimmickry@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/gimmickry/-/gimmickry-0.0.6.tgz#e2c0831733e9d15e1dd5c9f12aa16a3a657f92b1"
   dependencies:
     bluebird "^3.5.0"
-    jquery "^3.2.1"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -3775,9 +3774,13 @@ map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
 
-material-colors@^1.2.5:
+material-colors:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/material-colors/-/material-colors-1.2.5.tgz#5292593e6754cb1bcc2b98030e4e0d6a3afc9ea1"
+
+material-design-color-module@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/material-design-color-module/-/material-design-color-module-0.1.2.tgz#1a5a535088983fd11a09e4894079fe4d21b13784"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"

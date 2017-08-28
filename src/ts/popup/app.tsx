@@ -3,6 +3,7 @@ import * as $ from "jquery";
 
 import {Local} from "./gimmicks";
 import Users from "./users";
+import Apps from "./apps";
 import * as Icons from "./icons";
 import Storage from "../utils/storage";
 
@@ -52,6 +53,10 @@ export default class App extends Component<any, AppState>{
     return (
       <div id="app">
         <div id="tabs">
+          <div id="tab-view" className={`tab${this.state.tab==="apps" ? " active" : ""}`} onClick={this.switchTab.bind(this, "apps")}>
+            <Icons.Approach/>
+            <span>App</span>
+          </div>
           <div id="tab-view" className={`tab${this.state.tab==="view" ? " active" : ""}`} onClick={this.switchTab.bind(this, "view")}>
             <Icons.UIComponent/>
             <span>View</span>
@@ -61,6 +66,7 @@ export default class App extends Component<any, AppState>{
             <span>User</span>
           </div>
         </div>
+        <Apps className={`tab-content${this.state.tab==="apps" ? " active" : ""}`} token={this.state.token} secret={this.state.secret}/>
         <Local className={`tab-content${this.state.tab==="view" ? " active" : ""}`} token={this.state.token} secret={this.state.secret}/>
         <Users className={`tab-content${this.state.tab==="users" ? " active" : ""}`} token={this.state.token} secret={this.state.secret}/>
       </div>
