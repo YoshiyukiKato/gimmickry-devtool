@@ -5,8 +5,30 @@ setup()
 });
 
 function setup(){
-  const url = chrome.runtime.getURL("./js/content_scripts/init.js")
-  return request(url)
+  const getapp = new Promise((resolve, reject) => {
+    chrome.storage.local.get("localApps", (result) => {
+      const items = result.localApps;
+      if(!items) resolve();
+      let item, appitem;
+      for(let i = 0; i < items.length; i++){
+        item = items[i];
+        if(location.hostname.match(new RegExp(item.targetURL))){
+          appitem = item;
+        };
+      }
+      resolve(appitem);
+    });
+  });
+  
+  return getapp
+  .then((item) => {
+    if(item && item.source){
+      return item.source;
+    }else{
+      const url = chrome.runtime.getURL("./js/content_scripts/init.js")
+      return request(url);
+    }
+  })
   .then((payload) => {
     const script = document.createElement("script");
     script.innerHTML = payload;
