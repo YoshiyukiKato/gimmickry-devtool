@@ -73,9 +73,7 @@
   },
   "dependencies": {
     "bluebird": "^3.5.0",
-    "d3": "^4.9.1",
     "gimmickry": "^0.0.6",
-    "googleapis": "^19.0.0",
     "jquery": "^3.2.1",
     "material-design-color-module": "^0.1.2",
     "password-validator": "^3.0.0",
