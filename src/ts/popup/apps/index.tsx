@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import $ from "jquery";
 import uuid from "uuid";
 
 import AceEditor from "react-ace";

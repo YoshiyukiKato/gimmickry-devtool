@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import * as $ from "jquery";
 
 import AceEditor from "react-ace";
 import brace from 'brace';
