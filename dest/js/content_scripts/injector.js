@@ -1,8 +1,16 @@
-setup()
-.then(loadScripts)
-.catch((err) => {
-  console.log(err);
-});
+init();
+
+function init(){
+  chrome.storage.local.get("status", (result) => {
+    if(result.status){
+      setup()
+      .then(loadScripts)
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  });
+}
 
 function setup(){
   const getapp = new Promise((resolve, reject) => {

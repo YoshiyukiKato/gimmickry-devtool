@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import * as $ from "jquery";
-
 import {Local} from "./gimmicks";
 import Users from "./users";
 import Apps from "./apps";
@@ -11,8 +9,9 @@ const storage = Storage.init();
 
 interface AppState{
   tab : string;
+  status? : boolean;
   token? : string;
-  secret? : string;  
+  secret? : string;
 }
 
 export default class App extends Component<any, AppState>{
@@ -24,20 +23,8 @@ export default class App extends Component<any, AppState>{
   }
 
   componentDidMount(){
-    storage.get("gizmo_token", (data:any) => {
-      this.setState({ token : data.gizmo_token });
-    });
-    this.validate();
-  }
-
-  validate(){
-    $.ajax({
-      method : "GET",
-      url : "https://s3-ap-northeast-1.amazonaws.com/gizmo-assets/private/secret.txt",
-      success : (secret:string) => {
-        this.setState({ secret : secret });
-      },
-      error : (err) => {}
+    storage.get("status", (data:any) => {
+      this.setState({ status : data.status });
     });
   }
 
@@ -49,9 +36,23 @@ export default class App extends Component<any, AppState>{
     this.setState({ tab : tab });
   }
 
+  handleStatusChange(status:boolean){
+    storage.set({ status : status });
+    this.setState({ status : status });
+  }
+
   render(){
     return (
       <div id="app">
+        <div id="app-status">
+          <div>Status : </div>
+          <div className="item-switch">
+            <div className={`item-switch-on ${this.state.status ? "active" : ""}`}
+            onClick={this.handleStatusChange.bind(this, true)}>on</div>
+            <div className={`item-switch-off ${this.state.status ? "" : "active"}`}
+            onClick={this.handleStatusChange.bind(this, false)}>off</div>
+          </div>
+        </div>
         <div id="tabs">
           <div id="tab-view" className={`tab${this.state.tab==="apps" ? " active" : ""}`} onClick={this.switchTab.bind(this, "apps")}>
             <Icons.Approach/>

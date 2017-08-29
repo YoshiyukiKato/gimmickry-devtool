@@ -55,8 +55,20 @@ input[type="text"], input[type="password"]{
   background-color : #E0E0E0;
 }
 
+#app-status{
+  display : flex;
+  padding-top : 12px;
+  padding-bottom : 12px;
+  padding-right : 12px;
+  padding-left : 12px;
+  background-color : white;
+  .item-switch{
+    margin-left : 12px;
+  }
+}
+
 #tabs{
-  margin-top : 12px;
+  margin-top : 6px;
 }
 .tab{
   display : inline-block;
