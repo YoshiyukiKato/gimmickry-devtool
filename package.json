@@ -1,7 +1,7 @@
 {
-  "name": "gizmo-webui",
+  "name": "gimmickry-devtool",
   "version": "0.0.1",
-  "description": "gizmo web ui",
+  "description": "A toolkit for using gimmickry",
   "main": "index.jsx",
   "author": "Yoshiyuki Kato",
   "license": "MIT",
