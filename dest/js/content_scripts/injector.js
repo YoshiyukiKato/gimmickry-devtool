@@ -30,17 +30,23 @@ function setup(){
   
   return getapp
   .then((item) => {
-    if(item && item.source){
-      return item.source;
+    if(item){
+      if(item.source){
+        return item.source;
+      }else{
+        const url = chrome.runtime.getURL("./js/content_scripts/init.js")
+        return request(url);
+      } 
     }else{
-      const url = chrome.runtime.getURL("./js/content_scripts/init.js")
-      return request(url);
+      return;
     }
   })
   .then((payload) => {
-    const script = document.createElement("script");
-    script.innerHTML = payload;
-    document.body.appendChild(script);
+    if(payload){
+      const script = document.createElement("script");
+      script.innerHTML = payload;
+      document.body.appendChild(script);
+    }
   })
 }
 
